@@ -1,4 +1,4 @@
-package hw1; //Lab 1 Jon Lee
+package hw1; //Lab 1 BINF6380 Jon Lee
 
 import java.util.Random;
 
