@@ -28,8 +28,13 @@ public class Lab2
 		Random random = new Random(); //random number generator
 		int score = 0; //initiate score counter
 		
+		System.out.println("How many seconds do you want the quiz to run for?");
+		String input = System.console().readLine();
+		long timeinput = Long.parseLong(input);
+		long time = timeinput*1000;
+		
 		long startTime = System.currentTimeMillis(); //define start time
-		long endTime = startTime + 30000; //define end time
+		long endTime = startTime + time; //define end time
 		
 		do
 		{
