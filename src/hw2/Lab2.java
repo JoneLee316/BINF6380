@@ -23,31 +23,31 @@ public class Lab2
 		"serine","threonine","tryptophan", 
 		"tyrosine", "valine"
 		};
-	public static void main(String[] args)
+	public static void main(String[] args) throws Exception
 	{
-		Random random = new Random();
-		int score = 0;
+		Random random = new Random(); //random number generator
+		int score = 0; //initiate score counter
 		
-		long startTime = System.currentTimeMillis();
-		long endTime = startTime + 30000;
+		long startTime = System.currentTimeMillis(); //define start time
+		long endTime = startTime + 30000; //define end time
 		
 		do
 		{
-			int x = random.nextInt(20);
+			int x = random.nextInt(20); //create random number for loop use
 			System.out.println("What is the one letter code for "+FULL_NAMES[x]);
-			String ans = System.console().readLine().toUpperCase();
-			if(ans.equals(SHORT_NAMES[x]))
+			String ans = System.console().readLine().toUpperCase(); //input from user
+			if(ans.equals(SHORT_NAMES[x])) //if input is correct
 			{
-				score++;
+				score++; //increase score count
 				System.out.println("Correct!\nTime remaining: "+((endTime-System.currentTimeMillis())/1000)+"sec");
 			}
 			
-			else
+			else //if input is incorrect
 			{
 				System.out.println("Incorrect!\nCorrect answer is: "+SHORT_NAMES[x]);
 				break;
 			}
-		} while(System.currentTimeMillis() <= endTime);
+		} while(System.currentTimeMillis() <= endTime); //loop while the time is less than end time
 		System.out.println("Times up!\nFinal score: "+score);
 	}
 }
