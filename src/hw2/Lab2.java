@@ -28,19 +28,26 @@ public class Lab2
 		Random random = new Random(); //random number generator
 		int score = 0; //initiate score counter
 		
+		//have length of test in seconds be a user input
 		System.out.println("How many seconds do you want the quiz to run for?");
 		String input = System.console().readLine();
 		long timeinput = Long.parseLong(input);
 		long time = timeinput*1000;
 		
-		long startTime = System.currentTimeMillis(); //define start time
-		long endTime = startTime + time; //define end time
+		//define start and end time
+		long startTime = System.currentTimeMillis();
+		long endTime = startTime + time;
 		
+		//loop while the time is less than end time
 		do
 		{
-			int x = random.nextInt(20); //create random number for loop use
+			//create random number for loop use
+			int x = random.nextInt(20);
+			
+			//ask for user input
 			System.out.println("What is the one letter code for "+FULL_NAMES[x]);
-			String ans = System.console().readLine().toUpperCase(); //input from user
+			String ans = System.console().readLine().toUpperCase();
+			
 			if(ans.equals(SHORT_NAMES[x])) //if input is correct
 			{
 				score++; //increase score count
@@ -50,9 +57,11 @@ public class Lab2
 			else //if input is incorrect
 			{
 				System.out.println("Incorrect!\nCorrect answer is: "+SHORT_NAMES[x]);
-				break;
+				break; //break out of loop
 			}
-		} while(System.currentTimeMillis() <= endTime); //loop while the time is less than end time
+		} while(System.currentTimeMillis() <= endTime);
+		
+		//print final score at end when time is up or loop breaks 
 		System.out.println("Times up!\nFinal score: "+score);
 	}
 }
