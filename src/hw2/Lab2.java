@@ -39,7 +39,7 @@ public class Lab2
 		long endTime = startTime + time;
 		
 		//loop while the time is less than end time
-		do
+		while(System.currentTimeMillis() <= endTime)
 		{
 			//create random number for loop use
 			int x = random.nextInt(20);
@@ -59,8 +59,7 @@ public class Lab2
 				System.out.println("Incorrect!\nCorrect answer is: "+SHORT_NAMES[x]);
 				break; //break out of loop
 			}
-		} while(System.currentTimeMillis() <= endTime);
-		
+		} 
 		//print final score at end when time is up or loop breaks 
 		System.out.println("Times up!\nFinal score: "+score);
 	}
