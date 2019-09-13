@@ -6,6 +6,7 @@ public class Lab1
 {
 	public static void main(String[] args) throws Exception
 	{
+		Random random = new Random(); //random number generator
 		String seq = ""; //sequence string
 		int aaa = 0; //to track AAA 3mer
 		for(int x=0; x<1000; x++) //repeat 1000 times
@@ -13,7 +14,6 @@ public class Lab1
 			String trimer = ""; //3mer string to add to sequence
 			for(int y=0; y<3; y++) //generate a 3mer
 			{
-				Random random = new Random(); //random number generator
 				int z=random.nextInt(4);
 				if(z==0)
 				{
