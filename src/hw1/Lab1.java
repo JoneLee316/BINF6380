@@ -13,7 +13,6 @@ public class Lab1
 		for(int x=0; x<1000; x++) //repeat 1000 times
 		{	
 			String trimer = ""; //3mer string to add to sequence
-			
 			for(int y=0; y<3; y++) //generate a 3mer
 			{
 				int z=random.nextInt(4);
@@ -34,7 +33,6 @@ public class Lab1
 					trimer = trimer + "A";
 				}
 			}
-			
 			seq = seq + trimer;
 			if(trimer.equals("AAA"))
 			{
