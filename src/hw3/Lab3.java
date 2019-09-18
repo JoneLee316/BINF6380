@@ -1,4 +1,4 @@
-package hw3;
+package hw3; //Lab 2 BINF6380 Jon Lee
 
 //import all necessary packages
 import java.io.BufferedReader;
