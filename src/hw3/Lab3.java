@@ -30,51 +30,70 @@ public class Lab3
 			{
 				//add lines that start with '>' to seqs_id list
 				seqs_id.add(line);
+				
+				//iterate to next line
+				line = reader.readLine();
 			}
 			
-			if(line.charAt(0) != '>')
+			//intermediate string to add sequence lines too
+			String full_seq = "";
+			
+			while(line.charAt(0) != '>')
 			{
-				//add lines that don't start with '>' to seqs list 
-				seqs.add(line);
-				
-				//declare variables for counting bps
-				int num_T = 0;
-				int num_C = 0;
-				int num_G = 0;
-				int num_A = 0;
-				
-				//iterate through sequence string and count bps
-				for(int x=0; x<line.length();)
+				if(line.charAt(0) != '>')
 				{
-					if(line.charAt(x) == 'T')
-					{
-						num_T++;
-					}
-					if(line.charAt(x) == 'C')
-					{
-						num_C++;
-					}
-					if(line.charAt(x) == 'G')
-					{
-						num_G++;
-					}
-					if(line.charAt(x) == 'A')
-					{
-						num_A++;
-					}
-					x++;
+					//add lines that make up the sequence to full_seq
+					full_seq = full_seq + line;	
+					
+					//iterte to next line
+					line = reader.readLine();
 				}
-				//generate list of integers of bp counts and add them to the list
-				List<Integer> num_TCGA = new ArrayList<Integer>();
-				num_TCGA.add(num_T);
-				num_TCGA.add(num_C);
-				num_TCGA.add(num_G);
-				num_TCGA.add(num_A);
 				
-				//add list of bp counts to the array list num_bp
-				num_bp.add(num_TCGA);
+				//if the next line is 'null' the loop breaks
+				if(line == null)
+				{
+					break;
+				}
 			}
-			line = reader.readLine();
+			//add full_seq to seqs list 
+			seqs.add(full_seq);
+			
+			//declare variables for counting bps
+			int num_T = 0;
+			int num_C = 0;
+			int num_G = 0;
+			int num_A = 0;
+			
+			//iterate through sequence string and count bps
+			for(int i=0; i<full_seq.length();)
+			{
+				if(full_seq.charAt(i) == 'T')
+				{
+					num_T++;
+				}
+				if(full_seq.charAt(i) == 'C')
+				{
+					num_C++;
+				}
+				if(full_seq.charAt(i) == 'G')
+				{
+					num_G++;
+				}
+				if(full_seq.charAt(i) == 'A')
+				{
+					num_A++;
+				}
+				i++;
+			}
+			//generate list of integers of bp counts and add them to the list
+			List<Integer> num_TCGA = new ArrayList<Integer>();
+			num_TCGA.add(num_T);
+			num_TCGA.add(num_C);
+			num_TCGA.add(num_G);
+			num_TCGA.add(num_A);
+			
+			//add list of bp counts to the array list num_bp
+			num_bp.add(num_TCGA);
 		}
 		//close reader
 		reader.close();
