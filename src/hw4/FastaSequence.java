@@ -15,24 +15,27 @@ public class FastaSequence
 {
 	public static List<FastaSequence> readFastaFile(String file) throws Exception
 	{
+		//instantiate list newFastaSequenceList to hold FastaSequence objects
 		List<FastaSequence> newFastaSequenceList = new ArrayList<FastaSequence>();
 		
+		//open reader
 		BufferedReader reader = new BufferedReader(new FileReader(new File(file)));
-
+		
 		String line = reader.readLine();
 		
+		//read lines while they contain text
 		while(line != null)
 		{
+			//append header line to seq_id
 			String seq_id = "";
-			
 			if(line.charAt(0) == '>')
 			{
-				seq_id = seq_id + line;
+				seq_id = line;
 				line = reader.readLine();
 			}
 			
+			//append sequence line(s) to full_seq
 			String full_seq = "";
-			
 			while(line.charAt(0) != '>')
 			{
 				if(line.charAt(0) != '>')
@@ -46,19 +49,24 @@ public class FastaSequence
 					break;
 				}
 			}
-			//instantiate a FastaSequence Object
+			//instantiate a FastaSequence Object using seq_id and full_seq from reader loop
 			FastaSequence newFastaSequenceObject = new FastaSequence(seq_id, full_seq);
 			
 			//add that new FastaSequence Object to the list
 			newFastaSequenceList.add(newFastaSequenceObject);
 		}
+		//close reader
 		reader.close();
+		
+		//return list of FastaSequence objects newFastaSequenceList
 		return newFastaSequenceList;
 	}
 	
+	//instantiate private strings for header and sequence for construction of class
 	private final String header;
 	private final String sequence;
 	
+	//constructor for FastaSequence
 	public FastaSequence(String header, String sequence)
 	{
 		this.header = header;
@@ -122,10 +130,13 @@ public class FastaSequence
 	
 	public static void writeUniuqe(String inFile, String outFile) throws Exception
 	{
+		//instantiate HashMap mapFS for collection of FastaSequence objects
 		Map<FastaSequence, Integer> mapFS = new HashMap<FastaSequence, Integer>();
 		
+		//instantiate listFS of FastaSequence objects
 		List<FastaSequence> listFS = FastaSequence.readFastaFile(inFile);
 		
+		//put listFS elements in mapFS and count duplicates
 		for(int i=0; i<listFS.size(); i++)
 		{
 			Integer count = mapFS.get(listFS.get(i));
@@ -140,8 +151,10 @@ public class FastaSequence
 			mapFS.put(listFS.get(i), count);
 		}
 		
+		//open writer
 		BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outFile)));
 		
+		//write elements of mapFS in order by values
 		for(FastaSequence key : mapFS.keySet())
         {
         	 for(int i=0; i<=Collections.max(mapFS.values()); i++)
@@ -152,20 +165,23 @@ public class FastaSequence
         		 }
         	 }
         }
-        
+        //flush and close writer
 		writer.flush(); writer.close();
 	}
 	
 	//main method
 	public static void main(String[] args) throws Exception
 	{
+		//instantiate fastaList of FastaSequences
 		List<FastaSequence> fastaList = FastaSequence.readFastaFile("/Users/jonlee/Documents/BINF6380/src/hw4/test.fasta");
 	
+		//print .toString() for all FastaSequence objects in fastaList
 		for(FastaSequence fs : fastaList)
 		{
 		System.out.println(fs.toString());
 		}	
 		
+		//run .writeUnique() method of FastaSequence
 		FastaSequence.writeUniuqe("/Users/jonlee/Documents/BINF6380/src/hw4/test.fasta", "/Users/jonlee/Documents/BINF6380/src/hw4/output.txt");
 	}	
 }
