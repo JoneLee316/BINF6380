@@ -145,15 +145,21 @@ public class MeowNow extends JFrame
 			String line = reader.readLine();
 			
 			if(line == null || reader.readLine() != null)
+			{
+				reader.close();
 				throw new Exception("Unexpected file format");
+			}
+				
 			
 			//try catch block to read in contents of chosen file to GUI
 			try
 			{
 				this.meow = line;
+				reader.close();
 			}
 			catch(Exception ex)
 			{
+				reader.close();
 				throw new Exception("Unexpected file format");
 			}
 			
