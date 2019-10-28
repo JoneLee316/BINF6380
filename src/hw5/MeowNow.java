@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class MeowNow extends JFrame
 {
-	private static final long serialVersionUID =3794059922116115530L;
+	private static final long serialVersionUID = 3794059922116115530L;
 	
 	//add text field and string to populate (string will be continually added to)
 	private JTextField aTextField = new JTextField();
@@ -137,38 +137,50 @@ public class MeowNow extends JFrame
 		//define the selected file
 		File chosenFile = jfc.getSelectedFile();
 		
+		BufferedReader reader = null;
+		
 		//try catch block to read selected file
 		try
 		{
 			//read lines of selected file **(not sure if reader should be closed or where to do so)**
-			BufferedReader reader = new BufferedReader(new FileReader(chosenFile));
+			reader = new BufferedReader(new FileReader(chosenFile));
 			String line = reader.readLine();
 			
 			if(line == null || reader.readLine() != null)
 			{
-				reader.close();
 				throw new Exception("Unexpected file format");
 			}
 				
-			
 			//try catch block to read in contents of chosen file to GUI
 			try
 			{
 				this.meow = line;
-				reader.close();
 			}
 			catch(Exception ex)
 			{
-				reader.close();
 				throw new Exception("Unexpected file format");
 			}
-			
+
 			updateTextField();
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Could not read file", JOptionPane.ERROR_MESSAGE);
+		}
+		finally
+		{
+			if(reader != null)
+			{
+				try
+				{
+					reader.close();
+				}
+				catch(Exception ex)
+				{
+					System.out.println(ex);
+				}
+			}
 		}
 	}
 	
