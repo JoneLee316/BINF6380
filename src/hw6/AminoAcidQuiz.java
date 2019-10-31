@@ -132,6 +132,8 @@ public class AminoAcidQuiz extends JFrame
 			updateTextLabel();
 			updateScoreLabel();
 		}
+		
+		checkButton.setEnabled(false);
 	}
 	
 	//method to end quiz - tied to Cancel button and end of timer
