@@ -3,6 +3,7 @@ package hw6; //Lab 6 BINF6380 Jon Lee
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.*;
 
@@ -11,7 +12,7 @@ public class AminoAcidQuiz extends JFrame
 	//all variables needed for GUI
 	private static final long serialVersionUID = 3794059922116115530L;
 	
-	private static boolean cancel = false;
+	private AtomicBoolean cancel = new AtomicBoolean(false);
 	
 	private JTextField inputTextField = new JTextField();
 	
@@ -91,7 +92,7 @@ public class AminoAcidQuiz extends JFrame
 	
 	private void playQuiz()
 	{	
-		cancel = false;
+		cancel.set(false);
 		
 		startButton.setEnabled(false);
 		nextButton.setEnabled(true);
@@ -140,7 +141,7 @@ public class AminoAcidQuiz extends JFrame
 	
 	private void endQuiz()
 	{
-		cancel = true;
+		cancel.set(true);
 		
 		startButton.setEnabled(true);
 		nextButton.setEnabled(false);
@@ -166,7 +167,7 @@ public class AminoAcidQuiz extends JFrame
 			try
 			{
 				//will only execute when timer is < 60 and cancel = false
-				while(!cancel && timer < 60)
+				while(cancel.get() == false && timer < 60)
 				{
 					timer++;
 					time = 60 - timer;
