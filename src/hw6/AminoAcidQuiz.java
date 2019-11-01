@@ -98,6 +98,8 @@ public class AminoAcidQuiz extends JFrame
 		nextButton.setEnabled(true);
 		checkButton.setEnabled(true);
 		
+		inputTextField.requestFocusInWindow();
+		
 		Random random = new Random();
 
 		int i = random.nextInt(20);
