@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.swing.*;
 
 public class AminoAcidQuiz extends JFrame
@@ -32,8 +31,6 @@ public class AminoAcidQuiz extends JFrame
 	private int correctInt = 0;
 	private int incorrectInt = 0;
 	
-	private float time = 0;
-	
 	//reference array for AA short names for answers
 	private static String[] SHORT_NAMES = 
 		{
@@ -43,7 +40,6 @@ public class AminoAcidQuiz extends JFrame
 		};
 	
 	//reference array for AA full names for question
-	
 	private static String[] FULL_NAMES = 
 		{
 		"alanine","arginine", "asparagine", 
@@ -57,7 +53,6 @@ public class AminoAcidQuiz extends JFrame
 		};
 	
 	//method to update Input Text Field
-	
 	private void updateInputText()
 	{
 		inputTextField.setText(inputText);
@@ -65,7 +60,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to update Text Label
-	
 	private void updateTextLabel()
 	{
 		textLabel.setText(text);
@@ -73,7 +67,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to update Score Label
-	
 	private void updateScoreLabel()
 	{
 		scoreLabel.setText("Current Score: Correct = " + correctInt + " Incorrect = " + incorrectInt);
@@ -81,15 +74,13 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to update Timer Label
-	
-	private void updateTimerLabel()
+	private void updateTimerLabel(float time)
 	{
 		timerLabel.setText("Time Reaining (sec): " + time);
 		validate();
 	}
 	
 	//method to play quiz - tied to Start button and Next Question button
-	
 	private void playQuiz()
 	{	
 		cancel.set(false);
@@ -114,7 +105,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to check quiz answers - tied to Check Answer button
-	
 	private void checkAnswer()
 	{
 		inputText = inputTextField.getText().toUpperCase();
@@ -140,7 +130,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to end quiz - tied to Cancel button and end of timer
-	
 	private void endQuiz()
 	{
 		cancel.set(true);
@@ -151,20 +140,19 @@ public class AminoAcidQuiz extends JFrame
 		
 		text = "";
 		inputText = "";
-		time = 0;
 		
 		updateTextLabel();
 		updateInputText();
-		updateTimerLabel();
+		updateTimerLabel(0);
 	}
 	
 	//timer class to run on a separate thread and update timer on AWT thread
-	
 	private class Timer implements Runnable
 	{
 		public void run()
 		{
 			int timer = 0;
+			float time = 0;
 			
 			try
 			{
@@ -173,6 +161,7 @@ public class AminoAcidQuiz extends JFrame
 				{
 					timer++;
 					time = 60 - timer;
+					
 					timerLabel.setText("Time Reaining (sec): " + time);
 					Thread.sleep(1000);
 				}
@@ -202,7 +191,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to set up Top Panel with Timer and Score labels
-	
 	private JPanel getTopPanel()
 	{
 		JPanel topPanel = new JPanel();
@@ -216,13 +204,12 @@ public class AminoAcidQuiz extends JFrame
 		topPanel.add(timerLabel);
 		
 		updateScoreLabel();
-		updateTimerLabel();
+		updateTimerLabel(0);
 		
 		return topPanel;
 	}
 	
 	//method to set up Center Panel with Text Label and Input Text Field
-	
 	private JPanel getCenterPanel()
 	{
 		JPanel centerPanel = new JPanel();
@@ -241,7 +228,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to set up Bottom Panel with Start, Next Question, Check Answer, and Cancel buttons
-	
 	private JPanel getBottomPanel()
 	{
 		JPanel bottomPanel = new JPanel();
@@ -304,7 +290,6 @@ public class AminoAcidQuiz extends JFrame
 	}
 	
 	//method to set up Amino Acid Quiz GUI
-	
 	public AminoAcidQuiz()
 	{
 		super("Amino Acid Quiz!");
@@ -319,7 +304,7 @@ public class AminoAcidQuiz extends JFrame
 		updateInputText();
 		updateTextLabel();
 		updateScoreLabel();
-		updateTimerLabel();
+		updateTimerLabel(0);
 		setVisible(true);
 	}
 	
