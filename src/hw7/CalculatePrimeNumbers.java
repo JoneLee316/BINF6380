@@ -46,7 +46,7 @@ public class CalculatePrimeNumbers extends JFrame
 			
 			try
 			{
-				while(cancel.get() == false && processComplete.get() == false)
+				while(processComplete.get() == false)
 				{
 					primeNumbers(input);
 				}
@@ -58,7 +58,6 @@ public class CalculatePrimeNumbers extends JFrame
 			
 			try
 			{
-				//will run on AWT thread to end quiz when time gets to 0
 				SwingUtilities.invokeAndWait(new Runnable()
 				{
 					public void run()
@@ -87,24 +86,30 @@ public class CalculatePrimeNumbers extends JFrame
 		
 		for(Integer t=0; t<n; t++)
 		{
-			int m=t/2;  
-			int flag=0;
-			
-			for(int i=2; i<=m; i++)
-			{      
-				if(t%i==0)
-				{           
-					flag=1;      
-					break;      
-				}
-			}
-			if(flag==0)
+			if(cancel.get() == false)
 			{
-				primes.add(t);
-				num = t.toString() + "\n" + num;
-				inputTextArea.setText(num);
-			}  
-			
+				int m=t/2;  
+				int flag=0;
+				
+				for(int i=2; i<=m; i++)
+				{      
+					if(t%i==0)
+					{           
+						flag=1;      
+						break;      
+					}
+				}
+				if(flag==0)
+				{
+					primes.add(t);
+					num = t.toString() + "\n" + num;
+					inputTextArea.setText(num);
+				} 
+			}
+			else
+			{
+				break;
+			}
 		}
 		System.out.println(primes);
 		System.out.println("Total number of prime numbers = " + primes.size());
@@ -115,7 +120,7 @@ public class CalculatePrimeNumbers extends JFrame
 		System.out.println("Process took: " + time + " seconds");
 		
 		textLabel.setText("<html><div style='text-align: center;'>Number of Primes = <html>" + primes.size() + "<html><br>Process took: <html>" + time + "<html> seconds</div></html>");
-		
+
 		processComplete.set(true);
     } 
 	
