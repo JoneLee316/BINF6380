@@ -9,35 +9,45 @@ import javax.swing.*;
 
 public class CalculatePrimeNumbers extends JFrame
 {
+	//define all variables for use
+	//serial number for GUI
 	private static final long serialVersionUID = 3794059922116115530L;
 	
+	//atomic booleans for method switching (to ensure visibility, atomicity and thread safety)
 	private AtomicBoolean cancel = new AtomicBoolean(false);
 	private AtomicBoolean processComplete = new AtomicBoolean(false);
 	
+	//text label for GUI information
 	private JLabel textLabel = new JLabel();
 	
+	//text area for user input and results (made it a scrolling pane)
 	private JTextArea inputTextArea = new JTextArea();
 	private JScrollPane inputScrollArea = new JScrollPane(inputTextArea);
 	
+	//three buttons for user to do, reset, and cancel the GUI
 	private JButton doButton = new JButton("Calculate");
 	private JButton newButton = new JButton("New Number");
 	private JButton cancelButton = new JButton("Cancel");
 	
-	private String text = "<html><div style='text-align: center;'>Welcome!<br>Click 'Calculate' to Determine all Prime Numbers</div></html>";
+	//standard GUI text
+	private String text = "<html><div style='text-align: center;'>Welcome!<br>Enter a Number between 0 and 2,147,483,647 and<br>Click 'Calculate' to Determine all Prime Numbers</div></html>";
 	private String inputText = "";
 	
+	//method for updating text label
 	private void updateTextLabel()
 	{
 		textLabel.setText(text);
 		validate();
 	}
 	
+	//method for updating text area
 	private void updateInputTextArea()
 	{
 		inputTextArea.setText(inputText);
 		validate();
 	}
 	
+	//Runnable class to run primeNumbers method on a separate thread
 	private class Task implements Runnable
 	{
 		public void run()
@@ -74,6 +84,7 @@ public class CalculatePrimeNumbers extends JFrame
 		}
 	}
 	
+	//method to calculate prime numbers
 	private void primeNumbers(int n) 
     {	
 		long start = System.currentTimeMillis();
@@ -108,6 +119,7 @@ public class CalculatePrimeNumbers extends JFrame
 			}
 			else
 			{
+				inputTextArea.setText("");
 				break;
 			}
 		}
@@ -119,11 +131,19 @@ public class CalculatePrimeNumbers extends JFrame
 		float time = (end-start)/1000f;
 		System.out.println("Process took: " + time + " seconds");
 		
-		textLabel.setText("<html><div style='text-align: center;'>Number of Primes = <html>" + primes.size() + "<html><br>Process took: <html>" + time + "<html> seconds</div></html>");
+		if(cancel.get() == true)
+		{
+			textLabel.setText("<html><div style='text-align: center;'>Process Canceled<br>Click 'New Number' to Try Again</div></html>");
+		}
+		else
+		{
+			textLabel.setText("<html><div style='text-align: center;'>Number of Primes = <html>" + primes.size() + "<html><br>Process took: <html>" + time + "<html> seconds</div></html>");
+		}
 
 		processComplete.set(true);
     } 
 	
+	//method to calculate button action listener
 	private void doTask()
 	{	
 		cancel.set(false);
@@ -135,6 +155,7 @@ public class CalculatePrimeNumbers extends JFrame
 		cancelButton.setEnabled(true);
 	}
 	
+	//method for reset action
 	private void reset()
 	{
 		cancel.set(true);
@@ -150,6 +171,7 @@ public class CalculatePrimeNumbers extends JFrame
 		updateInputTextArea();
 	}
 	
+	//method for ending task and cancelling it
 	private void endTask()
 	{
 		cancel.set(true);
@@ -162,6 +184,7 @@ public class CalculatePrimeNumbers extends JFrame
 		inputTextArea.requestFocusInWindow();
 	}
 	
+	//top panel layout method
 	private JPanel getTopPanel()
 	{
 		JPanel topPanel = new JPanel();
@@ -174,6 +197,7 @@ public class CalculatePrimeNumbers extends JFrame
 		return topPanel;
 	}
 	
+	//center panel layout method
 	private JPanel getCenterPanel()
 	{
 		JPanel centerPanel = new JPanel();
@@ -187,6 +211,7 @@ public class CalculatePrimeNumbers extends JFrame
 		return centerPanel;
 	}
 	
+	//bottom panel layout method
 	private JPanel getBottomPanel()
 	{
 		JPanel bottomPanel = new JPanel();
@@ -240,6 +265,7 @@ public class CalculatePrimeNumbers extends JFrame
 		return bottomPanel;
 	}
 	
+	//GUI method
 	public CalculatePrimeNumbers()
 	{
 		super("Determine Prime Factors");
@@ -255,6 +281,7 @@ public class CalculatePrimeNumbers extends JFrame
 		setVisible(true);
 	}
 	
+	//main method to run the GUI
 	public static void main(String[] args)
 	{
 		new CalculatePrimeNumbers();
