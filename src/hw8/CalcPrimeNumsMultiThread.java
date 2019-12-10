@@ -95,6 +95,7 @@ public class CalcPrimeNumsMultiThread extends JFrame
 		}
 	}
 	
+	//Runnable class to manage prime number determination and semaphores on separate thread
 	private class PrimeManager implements Runnable
 	{
 		private final Integer input;
@@ -323,4 +324,3 @@ public class CalcPrimeNumsMultiThread extends JFrame
 		new CalcPrimeNumsMultiThread();
 	}
 }
-
