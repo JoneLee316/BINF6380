@@ -45,7 +45,7 @@ public class Lab3
 					//add lines that make up the sequence to full_seq
 					full_seq = full_seq + line;	
 					
-					//iterte to next line
+					//iterate to next line
 					line = reader.readLine();
 				}
 				
@@ -104,7 +104,7 @@ public class Lab3
 		System.out.println(num_bp);
 		
 		//initiate writer and generate output file in same location as input file (reader)
-		BufferedWriter writer = new BufferedWriter(new FileWriter(new File("/Users/jonlee/Documents/BINF6380/src/hw3/hw3_output.txt")));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(new File("/Users/jonlee/Documents/BINF6380/src/hw3/output.txt")));
 		
 		//write header for the file
 		writer.write("sequenceID"+"\t"+"numT"+"\t"+"numC"+"\t"+"numG"+"\t"+"numA"+"\t"+"sequence"+"\n");
